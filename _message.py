@@ -31,7 +31,6 @@ def handle(msg):
         bot.sendMessage(
             chat_id, "...Subscribed... To unsubscribe, type 'quit'")
 
-    chat_id_list = list(set(chat_id_list))  # Remove duplicate
     logger.info(str(msg))
 
 
