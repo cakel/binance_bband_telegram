@@ -20,7 +20,7 @@ def mainloop():
         _caption = f"{now_time} 현재가:{current_price:.2f}, 15분 BB상단:{current_upper:.2f}/하단:{current_lower:.2f}/비율:{current_price_percentage:.2f}%"
 
         # Graph First time and after, every 10Min
-        if img_cnt % 60 == 0:
+        if img_cnt > 60:
             try:
                 send_message_with_image(_caption, "output.jpg")
             except Exception as _e:
@@ -32,11 +32,11 @@ def mainloop():
         # Sending message condition
         if current_price_percentage > 90 or current_price_percentage < 10:
             if current_price_percentage > 90:
-                _message = "*매도* : BB(90%)/상단 근접/넘어감(>100)" + _caption
+                _message = "*매도* : BB상단 근접(90%) 또는 넘어감(>100%)" + _caption
                 this_message_type = "Sell"
 
             elif current_price_percentage < 10:
-                _message = "*구매* : BB(10%)/하단 근접/내려감(<0)" + _caption
+                _message = "*구매* : BB하단 근접(10%) 또는 내려감(<0%)" + _caption
                 this_message_type = "Buy"
 
             # Buy -> Sell or vice versa
@@ -51,7 +51,7 @@ def mainloop():
 
                 msg_cnt = 0  # Count until it's ready to send message again
 
-        if msg_cnt > 6:  # The Count ready cool time is 60s
+        if msg_cnt > 90:  # The Count ready cool time is 15Min
             msg_cnt = -1    # Ready to send
         else:
             msg_cnt += 1    # Wait and add count
@@ -60,7 +60,7 @@ def mainloop():
 
 
 if __name__ == "__main__":
-    logger.info("=== Program Loop Start ===")
+    logger.info(f"=== Program Loop Start ===")
     initialize_listening()
     mainloop()
     pass
