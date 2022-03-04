@@ -53,7 +53,7 @@ def send_message_with_image(_caption, _file):
 
 def send_message(_message):
     for chat_id in message_chat_id_list:
-        logger.info(f"send message:{_message} with image to chat_id:{chat_id}")
+        logger.info(f"send message:{_message} only to chat_id:{chat_id}")
         bot.sendMessage(chat_id, _message, parse_mode="Markdown")
 
 
