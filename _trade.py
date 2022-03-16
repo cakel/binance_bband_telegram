@@ -21,7 +21,7 @@ def get_data_frame():
     # starttime = '1 Dec, 2017', '1 Jan, 2018'  for last month of 2017
     # e.g. client.get_historical_klines(symbol='BTCUSDT', '1h', "1 Dec, 2017", "1 Jan, 2018")
 
-    starttime = '2 day ago UTC'  # to start for 1 day ago
+    starttime = '4 day ago UTC'  # to start for 1 day ago
     bars = client.get_historical_klines(symbol, interval, starttime, klines_type=HistoricalKlinesType.FUTURES)
 
     for line in bars:        # Keep only first 5 columns, "date" "open" "high" "low" "close"
@@ -51,7 +51,7 @@ def buy_or_sell(df):
     current_price_delta = current_price - current_lower
     current_price_percentage = current_price_delta / upper_lower_delta * 100.0
 
-    logger.info(f"current_price: {current_price}, 15Min BBand Upper:{current_upper:.3f} Lower:{current_lower:.3f} => {current_price_percentage:.3f}%")
+    logger.info(f"current_price: {current_price}, {config['BINANCE_TRACE_INTERVAL']} BBand Upper:{current_upper:.3f} Lower:{current_lower:.3f} => {current_price_percentage:.3f}%")
     return (current_price, current_upper, current_lower, current_price_percentage)
 
 def bollinger_trade_logic():

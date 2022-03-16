@@ -15,7 +15,7 @@ def initialize_listening():
             isinstance(message_chat_id_list, list) and \
             message_chat_id_list != []:
         for chat_id in message_chat_id_list:
-            bot.sendMessage(chat_id, "봇이 (재)시작합니다.(v1.1)")
+            bot.sendMessage(chat_id, f"봇이 (재)시작합니다.(v1.2)(비교가격:{config['BINANCE_TRACE_SYMBOL']}/비교간격:{config['BINANCE_TRACE_INTERVAL']})")
 
 def handle(msg):
     global message_chat_id_list, graph_chat_id_list
