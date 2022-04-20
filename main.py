@@ -20,6 +20,7 @@ def mainloop():
         now_time = now.strftime('%Y년%m월%d일 %H시%M분%S초')
         (current_price, current_upper, current_lower,
          current_price_percentage) = bollinger_trade_logic()
+        _message_caption = f"현재가:{current_price:.2f}\n{config['BINANCE_TRACE_INTERVAL']}봉\n"
         _caption = f"{now_time} 현재가:{current_price:.2f}, {config['BINANCE_TRACE_INTERVAL']} BB상단:{current_upper:.2f}/하단:{current_lower:.2f}/비율:{current_price_percentage:.2f}%"
 
         # Graph First time and after, every 10Min
@@ -35,11 +36,11 @@ def mainloop():
 
         # Determine Sell(매도) or Buy(매수) or Skip(다음)
         if current_price_percentage >= 90:
-            _message = "*매도* : BB상단 근접(90%) 또는 넘어감(>100%)" + _caption
+            _message = _message_caption + "BB상단 근접" + now_time
             this_message_type = "Sell"
 
         elif current_price_percentage <= 10:
-            _message = "*구매* : BB하단 근접(10%) 또는 내려감(<0%)" + _caption
+            _message = _message_caption + "BB하단 근접" + now_time
             this_message_type = "Buy"
 
         else:
